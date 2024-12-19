@@ -26,4 +26,24 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
     @Modifying
     @Query(value = "SELECT * FROM get_users()", nativeQuery = true)
     List<UserModel> getAllUsers();
+
+    // Update user data
+    @Modifying
+    @Query(value = "CALL update_user_data(:p_user_id, :p_first_name, :p_last_name, :p_email, :p_age)", nativeQuery = true)
+    void updateUser(@Param("p_user_id") Integer user_id,
+                  @Param("p_first_name") String first_name,
+                  @Param("p_last_name") String last_name,
+                  @Param("p_email") String email,
+                  @Param("p_age") String age);
+
+    // Update user password
+    @Modifying
+    @Query(value = "CALL update_user_password(:p_user_id, :p_password)", nativeQuery = true)
+    void updatePassword(@Param("p_user_id") Integer user_id,
+                        @Param("p_password") String password);
+
+    // Delete user
+    @Modifying
+    @Query(value = "CALL delete_user(:p_user_id)", nativeQuery = true)
+    void deleteUser(@Param("p_user_id") Integer user_id);
 }

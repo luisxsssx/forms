@@ -31,6 +31,23 @@ public class UserService {
     }
 
     @Transactional
+    public void updateUser(UserModel userModel) {
+        String encryptedPassword = passwordEncoder.encode(userModel.password);
+        userRepository.updateUser(userModel.user_id, userModel.first_name, userModel.last_name, userModel.email, userModel.age);
+    }
+
+    @Transactional
+    public void updatePassword(UserModel userModel) {
+        String encryptedPassword = passwordEncoder.encode(userModel.password);
+        userRepository.updatePassword(userModel.user_id, encryptedPassword);
+    }
+
+    @Transactional
+    public void deleteUser(UserModel userModel) {
+        userRepository.deleteUser(userModel.user_id);
+    }
+
+    @Transactional
     public List<UserModel> listAllUsers(){
         return userRepository.getAllUsers();
     }
