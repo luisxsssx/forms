@@ -15,4 +15,5 @@ public class UserModel {
     public String last_name;
     public String email;
     public String age;
+    public String password;
 }

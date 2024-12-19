@@ -3,6 +3,7 @@ package com.backend.forms.service;
 import com.backend.forms.models.UserModel;
 import com.backend.forms.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +14,20 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public UserService() {
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
+
+    public String encryptPassword(String password) {
+        return passwordEncoder.encode(password);
+    }
+
     @Transactional
     public void saveUser(UserModel userModel){
-        userRepository.saveUser(userModel.first_name, userModel.last_name, userModel.email, userModel.age);
+        String encryptedPassword = passwordEncoder.encode(userModel.password);
+        userRepository.saveUser(userModel.first_name, userModel.last_name, userModel.email, userModel.age, encryptedPassword);
     }
 
     @Transactional

@@ -14,11 +14,12 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
     // Insert user information
     @Modifying
-    @Query(value = "CALL save_users(:first_name, :last_name, :email, :age)", nativeQuery = true)
+    @Query(value = "CALL save_users(:first_name, :last_name, :email, :age, :password)", nativeQuery = true)
     void saveUser(@Param("first_name") String first_name,
                   @Param("last_name") String last_name,
                   @Param("email") String email,
-                  @Param("age") String age);
+                  @Param("age") String age,
+                  @Param("password") String password);
 
 
     // Get user information
