@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserModel, Long> {
+public interface UserRepo extends JpaRepository<UserModel, Long> {
 
     // Insert user information
     @Modifying
@@ -20,7 +20,6 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
                   @Param("email") String email,
                   @Param("age") String age,
                   @Param("password") String password);
-
 
     // Get user information
     @Modifying

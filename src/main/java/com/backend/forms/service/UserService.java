@@ -1,7 +1,9 @@
 package com.backend.forms.service;
 
+import com.backend.forms.execptions.ApiResponse;
+import com.backend.forms.execptions.ExceptionMessage;
 import com.backend.forms.models.UserModel;
-import com.backend.forms.repository.UserRepository;
+import com.backend.forms.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ import java.util.List;
 @Service
 public class UserService {
     @Autowired
-    private UserRepository userRepository;
+    private UserRepo userRepo;
 
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -25,30 +27,42 @@ public class UserService {
     }
 
     @Transactional
-    public void saveUser(UserModel userModel){
+    public ApiResponse saveUser(UserModel userModel){
         String encryptedPassword = passwordEncoder.encode(userModel.password);
-        userRepository.saveUser(userModel.first_name, userModel.last_name, userModel.email, userModel.age, encryptedPassword);
+        try {
+          userRepo.saveUser(userModel.first_name, userModel.last_name, userModel.email, userModel.age, encryptedPassword);
+            return new ApiResponse("User created correctly");
+        } catch (Exception e) {
+          throw new ExceptionMessage("Error creating user" + e.getMessage(), 1002);
+      }
     }
 
     @Transactional
     public void updateUser(UserModel userModel) {
-        String encryptedPassword = passwordEncoder.encode(userModel.password);
-        userRepository.updateUser(userModel.user_id, userModel.first_name, userModel.last_name, userModel.email, userModel.age);
+        try {
+            userRepo.updateUser(userModel.user_id, userModel.first_name, userModel.last_name, userModel.email, userModel.age);
+        } catch (Exception e) {
+            throw new ExceptionMessage("Failed update to data" + e.getMessage(), 1002);
+        }
     }
 
     @Transactional
     public void updatePassword(UserModel userModel) {
         String encryptedPassword = passwordEncoder.encode(userModel.password);
-        userRepository.updatePassword(userModel.user_id, encryptedPassword);
+        try {
+            userRepo.updatePassword(userModel.user_id, encryptedPassword);
+        } catch (Exception e) {
+            throw new ExceptionMessage("Failed update to password" + e.getMessage(), 1002);
+        }
     }
 
     @Transactional
     public void deleteUser(UserModel userModel) {
-        userRepository.deleteUser(userModel.user_id);
+        userRepo.deleteUser(userModel.user_id);
     }
 
     @Transactional
     public List<UserModel> listAllUsers(){
-        return userRepository.getAllUsers();
+        return userRepo.getAllUsers();
     }
 }
