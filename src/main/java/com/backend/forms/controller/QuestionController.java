@@ -1,6 +1,7 @@
 package com.backend.forms.controller;
 
 import com.backend.forms.execptions.ApiResponse;
+import com.backend.forms.models.AnswerModel;
 import com.backend.forms.models.QuestionModel;
 import com.backend.forms.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,18 @@ public class QuestionController {
         try {
             ApiResponse apiResponse = questionService.createQuestion(questionModel);
             return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+        } catch (Exception e) {
+            ApiResponse error = new ApiResponse("Error: " + e.getMessage());
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // Answers section
+    @PostMapping("/answer/add")
+    public ResponseEntity<ApiResponse> saveAnswer(@RequestBody AnswerModel answerModel) {
+        try {
+          ApiResponse apiResponse = questionService.createAnswer(answerModel);
+          return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
         } catch (Exception e) {
             ApiResponse error = new ApiResponse("Error: " + e.getMessage());
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);

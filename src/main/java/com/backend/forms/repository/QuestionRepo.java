@@ -14,5 +14,6 @@ public interface QuestionRepo extends JpaRepository<QuestionModel, Long> {
     @Query(value = "CALL create_questions(:form_id, :question_title, :response_type)", nativeQuery = true)
     void saveQuestion(@Param("form_id") Integer formId,
                       @Param("question_title") String questionTitle,
-                      @Param("response_type")String responseType);
+                      @Param("response_type")String responseType
+    );
 }

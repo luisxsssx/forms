@@ -19,7 +19,8 @@ public interface UserRepo extends JpaRepository<UserModel, Long> {
                   @Param("last_name") String last_name,
                   @Param("email") String email,
                   @Param("age") String age,
-                  @Param("password") String password);
+                  @Param("password") String password
+    );
 
     // Get user information
     @Modifying
@@ -33,13 +34,15 @@ public interface UserRepo extends JpaRepository<UserModel, Long> {
                   @Param("p_first_name") String first_name,
                   @Param("p_last_name") String last_name,
                   @Param("p_email") String email,
-                  @Param("p_age") String age);
+                  @Param("p_age") String age
+    );
 
     // Update user password
     @Modifying
     @Query(value = "CALL update_user_password(:p_user_id, :p_password)", nativeQuery = true)
     void updatePassword(@Param("p_user_id") Integer user_id,
-                        @Param("p_password") String password);
+                        @Param("p_password") String password
+    );
 
     // Delete user
     @Modifying

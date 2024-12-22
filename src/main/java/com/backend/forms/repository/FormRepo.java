@@ -15,20 +15,21 @@ public interface FormRepo extends JpaRepository<FormModel, Long> {
     @Query(value = "CALL create_form(:title, :description, :user_id)", nativeQuery = true)
     void createForm(@Param("title") String formTitle,
                     @Param("description") String description,
-                    @Param("user_id") Integer userId);
+                    @Param("user_id") Integer userId
+    );
 
     // Update Form Data
     @Modifying
     @Query(value = "CALL update_form(:p_form_id, :title, :description)", nativeQuery = true)
     void updateForm(@Param("p_form_id") Integer formId,
                     @Param("title") String formTitle,
-                    @Param("description") String description);
+                    @Param("description") String description
+    );
 
     // Delete form
     @Modifying
     @Query(value = "CALL delete_form(:form_id)", nativeQuery = true)
     void deleteForm(@Param("form_id") Integer formId);
 
-    class QuestionRepo {
-    }
+
 }
