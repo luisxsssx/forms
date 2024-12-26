@@ -17,12 +17,4 @@ public interface AnswerRepo extends JpaRepository<AnswerModel, Integer> {
             @Param("p_selected_option") Integer selectedOption,
             @Param("p_answer_text") String answerText
     );
-
-    // options section
-    @Modifying
-    @Query(value = "CALL save_options(:question_id, :option_text)", nativeQuery = true)
-    void save_options(
-            @Param("question_id") Integer questionId,
-            @Param("option_text") String optionText
-    );
 }

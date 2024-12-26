@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class QuestionService {
+
     @Autowired
     private QuestionRepo questionRepo;
+    @Autowired
     private AnswerRepo answerRepo;
 
     @Transactional
@@ -27,6 +29,31 @@ public class QuestionService {
             return new ApiResponse("Question saved correctly");
         } catch (Exception e) {
             throw new ExceptionMessage("Error saving the question" + e.getMessage(),1002);
+        }
+    }
+
+    @Transactional
+    ApiResponse updateQuestion(QuestionModel questionModel) {
+        try {
+            String responseType = questionModel.response_type.getValue().toLowerCase();
+            questionRepo.updateQuestion(
+                    questionModel.question_id,
+                    questionModel.question_title,
+                    responseType
+            );
+            return new ApiResponse("Question saved correctly");
+        } catch (Exception e) {
+            throw new ExceptionMessage("Error saving question" + e.getMessage(), 1002);
+        }
+    }
+
+    @Transactional
+    public ApiResponse deleteQuestion(QuestionModel questionModel){
+        try {
+            questionRepo.deleteQuestion(questionModel.question_id);
+            return new ApiResponse("Question successfully Removed");
+        } catch (Exception e) {
+            throw new ExceptionMessage("Error deleting question" + e.getMessage(), 1002);
         }
     }
 

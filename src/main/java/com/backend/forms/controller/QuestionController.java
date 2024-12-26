@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/questions")
+@RequestMapping("forms/questions")
 public class QuestionController {
     @Autowired
     private QuestionService questionService;

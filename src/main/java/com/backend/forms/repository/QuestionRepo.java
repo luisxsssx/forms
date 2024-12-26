@@ -16,4 +16,15 @@ public interface QuestionRepo extends JpaRepository<QuestionModel, Long> {
                       @Param("question_title") String questionTitle,
                       @Param("response_type")String responseType
     );
+
+    @Modifying
+    @Query(value = "CALL update_question(:question_id, :form_id, :question_title, :response_type)", nativeQuery = true)
+    void updateQuestion(@Param("question_id") Integer questionId,
+                        @Param("question_title") String questionTitle,
+                        @Param("response_type")String responseType
+    );
+
+    @Modifying
+    @Query(value = "CALL delete_question(:p_question_id)", nativeQuery = true)
+    void deleteQuestion(@Param("p_question_id") Integer question_id);
 }

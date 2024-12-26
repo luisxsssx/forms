@@ -58,7 +58,11 @@ public class UserService {
 
     @Transactional
     public void deleteUser(UserModel userModel) {
-        userRepo.deleteUser(userModel.user_id);
+        try {
+            userRepo.deleteUser(userModel.user_id);
+        } catch (Exception e) {
+            throw new ExceptionMessage("Error deleting user" + e.getMessage(), 1002);
+        }
     }
 
     @Transactional
