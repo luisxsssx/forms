@@ -29,8 +29,9 @@ public class UserService {
     @Transactional
     public ApiResponse saveUser(UserModel userModel){
         String encryptedPassword = passwordEncoder.encode(userModel.password);
+        String rol = String.valueOf(userModel.rol);
         try {
-          userRepo.saveUser(userModel.first_name, userModel.last_name, userModel.email, userModel.age, encryptedPassword);
+          userRepo.saveUser(userModel.first_name, userModel.last_name, userModel.email, userModel.age, encryptedPassword, rol);
             return new ApiResponse("User created correctly");
         } catch (Exception e) {
           throw new ExceptionMessage("Error creating user" + e.getMessage(), 1002);

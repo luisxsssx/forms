@@ -1,4 +1,4 @@
-package com.backend.forms.models;
+package com.backend.forms.models.enums;
 
 public enum ResponseType {
     SHORT_ANSWER("short_answer"),

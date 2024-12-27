@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.management.relation.Role;
 import java.util.List;
 
 @Repository
@@ -14,12 +15,13 @@ public interface UserRepo extends JpaRepository<UserModel, Long> {
 
     // Insert user information
     @Modifying
-    @Query(value = "CALL save_users(:first_name, :last_name, :email, :age, :password)", nativeQuery = true)
+    @Query(value = "CALL save_users(:first_name, :last_name, :email, :age, :password, :rol)", nativeQuery = true)
     void saveUser(@Param("first_name") String first_name,
                   @Param("last_name") String last_name,
                   @Param("email") String email,
                   @Param("age") String age,
-                  @Param("password") String password
+                  @Param("password") String password,
+                  @Param("rol") String rol
     );
 
     // Get user information

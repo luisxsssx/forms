@@ -1,5 +1,6 @@
 package com.backend.forms.models;
 
+import com.backend.forms.models.enums.Rol;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -16,4 +17,5 @@ public class UserModel {
     public String email;
     public String age;
     public String password;
+    public Rol rol;
 }

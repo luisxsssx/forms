@@ -1,12 +1,12 @@
 package com.backend.forms.models;
 
+import com.backend.forms.models.enums.ResponseType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
